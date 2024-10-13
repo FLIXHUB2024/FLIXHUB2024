@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLIXHUB - Compra de Oferta</title>
+    <link rel="shortcut icon" href="./imgs/flixhub.webp" type="image/x-icon">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* Estilos para la tarjeta de la oferta */
+        .oferta {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .oferta h3 {
+            margin-bottom: 10px;
+            font-size: 22px;
+            color: #333;
+        }
+
+        .oferta p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .btn-secondary {
+            background-color: #ff4c4c;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e03e3e;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Estilo del formulario */
+        #formulario {
+            display: none;
+            margin: 20px auto;
+            max-width: 300px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out; /* Animación de entrada */
+        }
+
+        #formulario label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        #formulario input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            color: green;
+            margin-top: 20px;
+        }
+
+        .logo {
+            position: absolute;
+            left: 40px;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            transition: transform 0.3s;
+        }
+
+        .logo img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1500">
+        <div class="logo">
+            <a href="ofertas-neflix.html">
+                <img src="./imgs/flecha-izquierda.png" alt="Logo FLIXHUB">
+            </a>
+        </div>
+
+        <!-- Producto: Oferta 12 -->
+        <div class="oferta">
+            <h3>OFERTA 12</h3>
+            <p>Precio: 25.000 COP</p>
+            <p>Dispositivos: 2 pantallas</p>
+            <p>Calidad: 720p</p>
+            <p>Dispositivos en reproducción: 4 pantallas</p>
+            <button class="btn-secondary" onclick="showForm()">Comprar</button> <!-- Muestra el formulario -->
+        </div>
+    </div>
+
+    <!-- Formulario emergente -->
+    <div id="formulario">
+        <h3>Formulario de Compra</h3>
+        <label for="name">Nombre (real):</label>
+        <input type="text" id="name" aria-label="Nombre real" required placeholder="Ingresa tu nombre">
+        <label for="email">Gmail (de la cuenta que quieres comprar):</label>
+        <input type="email" id="email" aria-label="Correo Gmail" required placeholder="ejemplo@gmail.com">
+        <label for="password">Contraseña (de la cuenta que quieres comprar):</label>
+        <input type="password" id="password" aria-label="Contraseña" required placeholder="Contraseña deseada">
+        <button class="btn-secondary" onclick="sendToWhatsApp()">CONFIRMAR</button>
+    </div>
+
+    <!-- Mensaje de éxito -->
+    <div class="success-message" id="success-message">¡Tu compra ha sido enviada correctamente a WhatsApp!</div>
+
+    <script>
+        function showForm() {
+            document.getElementById("formulario").style.display = "block";
+        }
+
+        function sendToWhatsApp() {
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            if (!name || !email || !password) {
+                alert("Por favor, rellena todos los campos.");
+                return;
+            }
+
+            var mensaje = `Hola buen día, FLIXHUB. Quiero obtener mi oferta de: 
+            *OFERTA 12*
+            Precio: 25.000 COP
+            Dispositivos: 2 pantallas
+            Calidad: 720p
+            Dispositivos en reproducción: 4 pantallas
+            
+            Nombre: ${name}
+            Gmail: ${email}
+            Contraseña: ${password}`;
+
+            var whatsappUrl = `https://wa.me/573502182322?text=${encodeURIComponent(mensaje)}`;
+            window.open(whatsappUrl, '_blank');
+
+            document.getElementById("formulario").style.animation = "fadeOut 0.5s ease-in-out";
+            setTimeout(function() {
+                document.getElementById("formulario").style.display = "none";
+                document.getElementById("success-message").style.display = "block";
+            }, 500);
+
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("password").value = "";
+        }
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>
